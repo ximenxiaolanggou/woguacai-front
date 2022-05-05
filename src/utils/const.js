@@ -1,0 +1,2 @@
+export let TOKEN_NAME = 'WOGUA_TOKEN_NAME'
+export let TOKEN_VALUE = 'WOGUA_TOKEN_VALUE'
