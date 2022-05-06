@@ -86,7 +86,7 @@ export default {
         }
         add(this.form)
         .then(() => {
-          this.$message.success('删除成功')
+          this.$message.success('操作成功')
           this.$emit('submitSuccessHandle')
         }).catch(err => {
           console.log(err)

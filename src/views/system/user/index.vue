@@ -174,6 +174,7 @@ export default {
       del(id)
       .then(res => {
         this.$message.success('操作成功')
+        this.page();
       })
     }
   },
