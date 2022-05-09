@@ -27,6 +27,20 @@ export const constantRoutes = [
     ]
   },
   {
+    path: '/blog',
+    name: 'Layout',
+    component: BasicLayout,
+    meta: {title: '博客', icon: 'el-icon-s-order'},
+    children: [
+      {
+        path: '/blog/list',
+        name: 'blog',
+        component: () => import('@/views/blog/index'),
+        meta: {title: '博客列表'}
+      }
+    ]
+  },
+  {
     path: '/login',
     name: 'Login',
     hidden: true,
