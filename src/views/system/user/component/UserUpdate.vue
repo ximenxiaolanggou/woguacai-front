@@ -71,8 +71,7 @@ export default {
       this.form.mail = this.user.mail;
       this.form.mobile = this.user.mobile;
       this.form.gender = this.user.gender;
-      if(!!this.user.roleIds) this.form.roles = this.user.roleIds.split(',')
-      ;
+      if(!!this.user.roleIds) this.form.roles = this.user.roleIds.split(',').map(item => parseInt(item));
   },
   methods: {
     roleSelectChangeHandle(e) {

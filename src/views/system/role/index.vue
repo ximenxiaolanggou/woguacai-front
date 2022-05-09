@@ -41,6 +41,13 @@
                 size="small">
               修改
             </el-button>
+            <el-button
+                style="margin-left: 5px"
+                @click.native.prevent="assignPermission(scope.row)"
+                type="text"
+                size="small">
+              权限
+            </el-button>
             <el-popconfirm
                 style="margin-left: 5px"
                 title="确定删除吗？"
@@ -70,6 +77,13 @@
         @submitSuccessHandle="updateSubmitSuccessHandle"
         @cancelHandle="updateCancelHandle"
     />
+    <role-assign-permission
+        v-if="assignPermissionVisible"
+        :dialogFormVisible="assignPermissionVisible"
+        :role="selectedRole"
+        @submitSuccessHandle="assignPermissionSubmitSuccessHandle"
+        @cancelHandle="assignPermissionCancelHandle"
+    />
   </div>
 </template>
 
@@ -77,6 +91,7 @@
 import CommonSearchHead from "@/components/CommonSearchHead";
 import RoleAdd from "@/views/system/role/component/RoleAdd";
 import RoleUpdate from "@/views/system/role/component/RoleUpdate";
+import RoleAssignPermission from "@/views/system/role/component/RoleAssignPermission";
 import {list as roleList, del} from "@/api/system/role";
 
 export default {
@@ -88,13 +103,15 @@ export default {
       selectedRole: {},
       addVisible: false,
       updateVisible: false,
+      assignPermissionVisible: false,
       roles: []
     }
   },
   components: {
     CommonSearchHead,
     RoleAdd,
-    RoleUpdate
+    RoleUpdate,
+    RoleAssignPermission
   },
   mounted() {
     this.page()
@@ -148,7 +165,18 @@ export default {
             this.$message.success('操作成功')
             this.page();
           })
-    }
+    },
+    // 分配权限
+    assignPermission(role) {
+      this.selectedRole = role;
+      this.assignPermissionVisible = true;
+    },
+    assignPermissionCancelHandle() {
+      this.assignPermissionVisible = false;
+    },
+    assignPermissionSubmitSuccessHandle() {
+      this.assignPermissionVisible = false;
+    },
   },
 }
 </script>

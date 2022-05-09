@@ -5,6 +5,7 @@ const api = {
     add: '/sysRole',
     del: '/sysRole',
     update: '/sysRole',
+    assignPermission: '/sysRole/assignPermission',
 }
 
 /**
@@ -56,6 +57,19 @@ export function del(id) {
     return request({
         url: `${api.del}/${id}`,
         method: 'delete'
+    })
+}
+
+/**
+ * 根据角色ID查询
+ * @param roleId
+ * @returns {AxiosPromise}
+ */
+export function assignPermission(roleId, permissionIds) {
+    return request({
+        url: `${api.assignPermission}/${roleId}`,
+        method: 'put',
+        data: permissionIds
     })
 }
 

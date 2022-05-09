@@ -15,7 +15,7 @@
         </div>
         <div>
           <el-dropdown>
-            <span class="el-dropdown-link">操作<i class="el-icon-arrow-down el-icon--right"></i></span>
+            <span class="el-dropdown-link">{{ user.username }}<i class="el-icon-arrow-down el-icon--right"></i></span>
             <el-dropdown-menu slot="dropdown" @click="logout">
               <el-dropdown-item>GitHub</el-dropdown-item>
               <el-dropdown-item>我的信息</el-dropdown-item>
@@ -61,7 +61,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['isCollapse'])
+    ...mapGetters(['isCollapse','user'])
   }
 }
 </script>

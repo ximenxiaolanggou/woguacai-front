@@ -16,7 +16,7 @@ export const constantRoutes = [
     path: '/',
     name: 'Layout',
     component: BasicLayout,
-    hidden: false,
+    singleChild: true,
     children: [
       {
         path: '/home',
@@ -27,34 +27,46 @@ export const constantRoutes = [
     ]
   },
   {
+    path: '/login',
+    name: 'Login',
+    hidden: true,
+    component: () => import('@/views/login'),
+    meta: {title: '登录'},
+  }
+]
+
+/**
+ * 异步路由
+ * @type {*[]}
+ */
+export const asyncRoutes = [
+  {
     path: '/system',
     component: BasicLayout,
     name: 'system',
     redirect: '/system/user',
-    meta: {title: '系统管理', icon: 'el-icon-s-tools'},
+    meta: {title: '系统管理', icon: 'el-icon-s-tools', permissions: ['system']},
     children: [
       {
         path: 'user',
         name: 'user',
         component: () => import('@/views/system/user/index'),
-        meta: {title: '用户'},
+        meta: {title: '用户', permissions: ['system-user']},
       },
       {
         path: '/system/role',
         name: 'role',
         component: () => import('@/views/system/role/index'),
-        meta: {title: '角色'},
+        meta: {title: '角色', permissions: ['system-role']},
       },
+      {
+        path: '/system/permission',
+        name: 'permission',
+        component: () => import('@/views/system/permission/index'),
+        meta: {title: '权限', permissions: ['system-permission']},
+      }
     ]
-  },
-
-  {
-    path: '/login',
-    name: 'Login',
-    component: () => import('@/views/login'),
-    meta: {title: '角色'},
-  },
-
+  }
 ]
 
 
