@@ -1,8 +1,8 @@
 import request from '@/utils/request'
 
 const api = {
-    upload: '/blog/upload',
-    delBlogUpload: '/blog/delBlogUpload'
+    upload: '/blogUpload/upload',
+    delBlogUpload: '/blogUpload/delBlogUpload'
 }
 
 /**
