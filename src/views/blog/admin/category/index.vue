@@ -75,9 +75,9 @@
 
 <script>
 import CommonSearchHead from "@/components/CommonSearchHead";
-import CategoryAdd from "@/views/blog/category/component/CategoryAdd";
-import CategoryUpdate from "@/views/blog/category/component/CategoryUpdate";
-import {add,list,del} from '@/api/blog/blogCategory'
+import CategoryAdd from "@/views/blog/admin/category/component/CategoryAdd";
+import CategoryUpdate from "@/views/blog/admin/category/component/CategoryUpdate";
+import {list,del} from '@/api/blog/blogCategory'
 
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
@@ -115,12 +115,6 @@ export default {
     searchHandle() {
       this.list();
     },
-    handleSizeChange(val) {
-      this.list();
-    },
-    handleCurrentChange(val) {
-      this.list();
-    },
     addHandle() {
       this.addVisible = true;
     },
@@ -144,7 +138,7 @@ export default {
     },
     deleteCategory({id}) {
       del(id)
-          .then(res => {
+          .then(() => {
             this.$message.success('操作成功')
             this.list();
           })

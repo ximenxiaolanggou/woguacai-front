@@ -4,6 +4,7 @@ import Router from 'vue-router'
 Vue.use(Router)
 
 import BasicLayout from '@/layout/basicLayout'
+import BlogLayout from "@/layout/blogLayout";
 
 
 /**
@@ -27,32 +28,64 @@ export const constantRoutes = [
     ]
   },
   {
-    path: '/blog',
+    path: '/blog/admin',
     name: 'Layout',
     component: BasicLayout,
     meta: {title: '博客', icon: 'el-icon-s-order'},
     children: [
       {
-        path: '/blog/list',
-        name: 'blog',
-        component: () => import('@/views/blog/index'),
-        meta: {title: '博客列表'}
+        path: '/blog/admin/category',
+        name: 'category',
+        component: () => import('@/views/blog/admin/category'),
+        meta: {title: '类别'}
       },
       {
-        path: '/blog/category',
-        name: 'category',
-        component: () => import('@/views/blog/category'),
-        meta: {title: '类别'}
-      }
+        path: '/blog/admin/tag',
+        name: 'tag',
+        component: () => import('@/views/blog/admin/tag'),
+        meta: {title: '标签'}
+      },
+      {
+        path: '/blog/admin/list',
+        name: 'blog',
+        component: () => import('@/views/blog/admin/article'),
+        meta: {title: '博客列表'}
+      },{
+        path: '/blog/admin/editor',
+        name: 'blog-editor',
+        hide: true,
+        component: () => import('@/views/blog/admin/article/Editor'),
+        meta: {title: '博客添加'}
+      },
     ]
   },
   {
     path: '/login',
     name: 'Login',
-    hidden: true,
+    hide: true,
     component: () => import('@/views/login'),
     meta: {title: '登录'},
-  }
+  },
+  {
+    path: '/blog/preview',
+    name: 'blog-preview',
+    component: BlogLayout,
+    hide: true,
+    children: [
+      {
+        path: '/blog/preview/list',
+        name: 'blog-preview-list',
+        component: () => import('@/views/blog/preview'),
+        meta: {title: '文章列表'}
+      },
+      {
+        path: '/blog/preview/detail',
+        name: 'blog-preview-detail',
+        component: () => import('@/views/blog/preview/preview'),
+        meta: {title: '博客预览'}
+      }
+    ]
+  },
 ]
 
 /**

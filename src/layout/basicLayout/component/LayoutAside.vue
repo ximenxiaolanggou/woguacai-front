@@ -6,7 +6,7 @@
     </div>
     <div v-for="(route,index) in routes" :key="index  + ''">
       <!-- 单菜单 -->
-      <el-menu-item v-if="route.singleChild && (!route.meta || !route.meta.hide)" :index="index + ''" @click="routeJumpHandle(route.children[0])">
+      <el-menu-item v-if="route.singleChild && !route.hide" :index="index + ''" @click="routeJumpHandle(route.children[0])">
         <i v-if="route.children[0].meta && route.children[0].meta.icon" :class="route.children[0].meta.icon"></i>
         <span slot="title">{{ route.children[0].meta && route.children[0].meta.title }}</span>
       </el-menu-item>
@@ -17,7 +17,7 @@
           <span v-if="!isCollapse" slot="title">{{ route.meta && route.meta.title }}</span>
         </template>
         <div v-for="(childRoute,childIndex) in route.children" :key="childIndex" >
-          <el-menu-item @click="routeJumpHandle(childRoute)" v-if="childRoute.meta && !childRoute.meta.hide" :index="childRoute.path" >{{ childRoute.meta && childRoute.meta.title }}</el-menu-item>
+          <el-menu-item @click="routeJumpHandle(childRoute)" v-if="!childRoute.hide" :index="childRoute.path" >{{ childRoute.meta && childRoute.meta.title }}</el-menu-item>
         </div>
       </el-submenu>
     </div>

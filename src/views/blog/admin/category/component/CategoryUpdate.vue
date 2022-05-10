@@ -19,7 +19,7 @@
 import {update} from "@/api/blog/blogCategory.js";
 
 export default {
-  name: "UserUpdate",
+  name: "CategoryUpdate",
   data() {
     return {
       form: {

@@ -1,5 +1,5 @@
 <template>
-  <el-dialog :show-close="false" :close-on-click-modal="false" title="类别角色" :visible.sync="dialogFormVisible" width="40%">
+  <el-dialog :show-close="false" :close-on-click-modal="false" title="添加角色" :visible.sync="dialogFormVisible" width="40%">
     <el-form :model="form" :rules="rules" ref="form">
       <el-form-item label="名称" prop="name" :label-width="formLabelWidth" >
         <el-input v-model="form.name" autocomplete="off"></el-input>
@@ -16,10 +16,10 @@
 </template>
 
 <script>
-import {add} from "@/api/blog/blogCategory.js";
+import {update} from "@/api/blog/blogTag.js";
 
 export default {
-  name: "UserAdd",
+  name: "TagUpdate",
   data() {
     return {
       form: {
@@ -36,7 +36,15 @@ export default {
     dialogFormVisible: {
       type: Boolean,
       default: false
+    },
+    tag: {
+      type: Object,
+      default: {}
     }
+  },
+   mounted() {
+      this.form.name = this.tag.name;
+      this.form.description = this.tag.description;
   },
   methods: {
     cancelHandle() {
@@ -47,7 +55,7 @@ export default {
         if (!valid) {
           return false;
         }
-        add(this.form)
+        update(this.tag.id,this.form)
         .then(() => {
           this.$message.success('操作成功')
           this.$emit('submitSuccessHandle')
