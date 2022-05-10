@@ -11,7 +11,7 @@
         <span slot="title">{{ route.children[0].meta && route.children[0].meta.title }}</span>
       </el-menu-item>
       <!-- 多菜单 -->
-      <el-submenu v-if="!!route.children && !route.singleChild" :index="index + ''">
+      <el-submenu v-if="!!route.children && !route.singleChild && !route.hide" :index="index + ''">
         <template slot="title">
           <i v-if="route.meta && route.meta.icon" :class="route.meta.icon"></i>
           <span v-if="!isCollapse" slot="title">{{ route.meta && route.meta.title }}</span>
@@ -37,7 +37,7 @@ export default {
   methods: {
     // 路由跳转事件
     routeJumpHandle(route) {
-      this.$router.push({name: route.name})
+      this.$router.push({path: route.redirect || route.path})
     }
   },
   computed: {

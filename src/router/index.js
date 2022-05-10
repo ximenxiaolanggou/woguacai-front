@@ -14,9 +14,10 @@ import BlogLayout from "@/layout/blogLayout";
  */
 export const constantRoutes = [
   {
-    path: '/',
-    name: 'Layout',
+    path: '/admin',
+    name: 'admin',
     component: BasicLayout,
+    redirect: '/home',
     singleChild: true,
     children: [
       {
@@ -28,48 +29,10 @@ export const constantRoutes = [
     ]
   },
   {
-    path: '/blog/admin',
-    name: 'Layout',
-    component: BasicLayout,
-    meta: {title: '博客', icon: 'el-icon-s-order'},
-    children: [
-      {
-        path: '/blog/admin/category',
-        name: 'category',
-        component: () => import('@/views/blog/admin/category'),
-        meta: {title: '类别'}
-      },
-      {
-        path: '/blog/admin/tag',
-        name: 'tag',
-        component: () => import('@/views/blog/admin/tag'),
-        meta: {title: '标签'}
-      },
-      {
-        path: '/blog/admin/list',
-        name: 'blog',
-        component: () => import('@/views/blog/admin/article'),
-        meta: {title: '博客列表'}
-      },{
-        path: '/blog/admin/editor',
-        name: 'blog-editor',
-        hide: true,
-        component: () => import('@/views/blog/admin/article/Editor'),
-        meta: {title: '博客添加'}
-      },
-    ]
-  },
-  {
-    path: '/login',
-    name: 'Login',
-    hide: true,
-    component: () => import('@/views/login'),
-    meta: {title: '登录'},
-  },
-  {
-    path: '/blog/preview',
+    path: '/',
     name: 'blog-preview',
     component: BlogLayout,
+    redirect: '/blog/preview/list',
     hide: true,
     children: [
       {
@@ -85,6 +48,12 @@ export const constantRoutes = [
         meta: {title: '博客预览'}
       }
     ]
+  },{
+    path: '/login',
+    name: 'Login',
+    hide: true,
+    component: () => import('@/views/login'),
+    meta: {title: '登录'},
   },
 ]
 
@@ -93,6 +62,40 @@ export const constantRoutes = [
  * @type {*[]}
  */
 export const asyncRoutes = [
+  // Blog
+  {
+    path: '/blog/admin',
+        name: 'Layout',
+      component: BasicLayout,
+      meta: {title: '博客', icon: 'el-icon-s-order', permissions: ['blog']},
+    children: [
+      {
+        path: '/blog/admin/category',
+        name: 'category',
+        component: () => import('@/views/blog/admin/category'),
+        meta: {title: '类别', permissions: ['blog-category']}
+      },
+      {
+        path: '/blog/admin/tag',
+        name: 'tag',
+        component: () => import('@/views/blog/admin/tag'),
+        meta: {title: '标签', permissions: ['blog-tag']}
+      },
+      {
+        path: '/blog/admin/list',
+        name: 'blog',
+        component: () => import('@/views/blog/admin/article'),
+        meta: {title: '博客列表', permissions: ['blog-article']}
+      },{
+        path: '/blog/admin/editor',
+        name: 'blog-editor',
+        hide: true,
+        component: () => import('@/views/blog/admin/article/Editor'),
+        meta: {title: '博客添加', permissions: ['blog-article-editor']}
+      },
+    ]
+  },
+  // system
   {
     path: '/system',
     component: BasicLayout,
@@ -101,7 +104,7 @@ export const asyncRoutes = [
     meta: {title: '系统管理', icon: 'el-icon-s-tools', permissions: ['system']},
     children: [
       {
-        path: 'user',
+        path: '/system/user',
         name: 'user',
         component: () => import('@/views/system/user/index'),
         meta: {title: '用户', permissions: ['system-user']},
@@ -119,7 +122,7 @@ export const asyncRoutes = [
         meta: {title: '权限', permissions: ['system-permission']},
       }
     ]
-  }
+  },
 ]
 
 
@@ -129,3 +132,4 @@ const router = new Router({
   routes: constantRoutes
 })
 export default router
+

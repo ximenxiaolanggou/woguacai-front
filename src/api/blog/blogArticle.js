@@ -3,8 +3,8 @@ import qs from 'qs'
 const api = {
     saveOrUpdate: '/blogArticle/saveOrUpdate',
     page: '/blogArticle/page',
-    findById: '/blogArticle',
-    del: '/blogArticle',
+    findById: '/blogArticle/findById',
+    del: '/blogArticle/del',
 }
 
 export function saveOrUpdate(data) {

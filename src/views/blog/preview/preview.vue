@@ -23,7 +23,7 @@ export default {
     }
   },
   mounted() {
-    findById(9)
+    findById(this.$route.query.id)
     .then(res => this.article = res.data)
   }
 }

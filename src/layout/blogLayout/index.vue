@@ -5,11 +5,9 @@
         <blog-layout-left/>
       </el-col>
       <el-col :span="14" class="middle">
-        <div class="middle-header">
-        </div>
         <router-view/>
       </el-col>
-      <el-col :span="5" class="right"><div class="grid-content bg-purple">3</div></el-col>
+      <el-col :span="5" class="right"></el-col>
     </el-row>
   </div>
 </template>
@@ -18,6 +16,16 @@
 import BlogLayoutLeft from "@/layout/blogLayout/component/BlogLayoutLeft";
 export default {
   name: "blog-layout",
+  data() {
+    return {
+      searchKey: ''
+    }
+  },
+  methods: {
+    search() {
+      this.$emit("searchHandle",this.searchKey)
+    }
+  },
   components:{
     BlogLayoutLeft
   }
@@ -41,10 +49,5 @@ export default {
   }
   .right {
     background-color: darkseagreen;
-  }
-  .middle-header {
-    height: 100px;
-    background-color: white;
-    margin-bottom: 20px;
   }
 </style>
