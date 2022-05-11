@@ -19,8 +19,7 @@ export default {
    padding: 0px;
    background-color: #eff1f4;
  }
- ul,li {
-   margin: 0px;
-   padding: 0px;
+ html {
+   overflow: hidden;
  }
 </style>

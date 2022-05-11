@@ -24,6 +24,9 @@ export default {
     flex-direction: column;
   }
   .left-main-top {
+    position: fixed;
+    left: 150px;
+    top: 100px;
     text-align: center;
     display: flex;
     flex-direction: column;

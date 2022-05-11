@@ -34,20 +34,27 @@ export default {
 
 <style scoped>
   .blog-layout {
-    height: 100%;
     width: 100%;
-    background: url("../../assets/blog-bg.png") no-repeat;
+    height: 100%;
+    background-image: url("../../assets/blog-bg.png");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
     background-size: cover;
+
   }
   .main {
     height: 100%;
-    background: rgba(0,0,0,0.6);
+    height: 100%;
+    overflow-y: scroll;
+    background-color: rgba(0,0,0,0.6);
+    background-size: cover;
+    background-attachment: fixed;
   }
   .left {
   }
   .middle {
   }
   .right {
-    background-color: darkseagreen;
+    height: 100%;
   }
 </style>

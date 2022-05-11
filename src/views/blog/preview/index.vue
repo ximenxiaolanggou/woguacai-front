@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="height: 100%">
     <div class="middle-header">
       <el-input clearable v-model="params.searchKey"  placeholder="请输入查询内容" style="width: 400px">
         <el-button slot="append" @click="search" icon="el-icon-search"></el-button>
@@ -8,23 +8,23 @@
     <div class="main">
       <el-timeline>
         <el-timeline-item v-for="(article, index) in articles" :key="index" :color="!!article.active ? '#ffe480': ''" :timestamp="moment(article.createtime).format('YYYY/MM/DD')" placement="top" size="large">
-          <div @mouseover="cardMouseoverHandle(article.id)" @click="articleClickHandle(article.id)">
+          <div @mouseover="cardMouseoverHandle(article.id)">
             <el-card class="card" >
-              <h2>{{article.title}}</h2>
+              <h2 @click="articleClickHandle(article.id)">{{article.title}}</h2>
               <p>{{ article.subTitle }}</p>
             </el-card>
           </div>
         </el-timeline-item>
       </el-timeline>
+      <el-pagination
+          style="margin-top: 10px;text-align: center"
+          @size-change="handleSizeChange"
+          @current-change="handleCurrentChange"
+          :page-size="10"
+          layout=" prev, pager, next"
+          :total="total">
+      </el-pagination>
     </div>
-    <el-pagination
-        style="margin-top: 10px;text-align: center"
-        @size-change="handleSizeChange"
-        @current-change="handleCurrentChange"
-        :page-size="10"
-        layout=" prev, pager, next"
-        :total="total">
-    </el-pagination>
   </div>
 </template>
 
