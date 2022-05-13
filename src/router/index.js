@@ -55,6 +55,21 @@ export const constantRoutes = [
     component: () => import('@/views/login'),
     meta: {title: '登录'},
   },
+
+  {
+    path: '/game',
+    name: 'game',
+    hide: true,
+    component: () => import('@/views/game'),
+    meta: {title: 'game'},
+  },
+  {
+    path: '/game/2048',
+    name: 'game-2048',
+    hide: true,
+    component: () => import('@/views/game/2048'),
+    meta: {title: '2048'},
+  },
 ]
 
 /**
