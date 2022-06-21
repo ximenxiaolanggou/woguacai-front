@@ -80,9 +80,9 @@ export const asyncRoutes = [
   // Blog
   {
     path: '/blog/admin',
-        name: 'Layout',
-      component: BasicLayout,
-      meta: {title: '博客', icon: 'el-icon-s-order', permissions: ['blog']},
+    name: 'Layout',
+    component: BasicLayout,
+    meta: {title: '博客', icon: 'el-icon-s-order', permissions: ['blog']},
     children: [
       {
         path: '/blog/admin/category',
@@ -108,6 +108,21 @@ export const asyncRoutes = [
         component: () => import('@/views/blog/admin/article/Editor'),
         meta: {title: '博客添加', permissions: ['blog-article-editor']}
       },
+    ]
+  },
+  {
+    path: '/iot',
+    component: BasicLayout,
+    name: 'iot',
+    redirect: '/iot/list',
+    meta: {title: 'IOT管理', icon: 'el-icon-s-ticket', permissions: ['iot']},
+    children: [
+      {
+        path: '/iot/list',
+        name: 'iot-list',
+        component: () => import('@/views/iot/index'),
+        meta: {title: 'IOT', permissions: ['iot-list']},
+      }
     ]
   },
   // system
@@ -137,7 +152,7 @@ export const asyncRoutes = [
         meta: {title: '权限', permissions: ['system-permission']},
       }
     ]
-  },
+  }
 ]
 
 
