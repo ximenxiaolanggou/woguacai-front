@@ -118,7 +118,7 @@ export default {
 <style scoped>
 .main{
   display: flex;
-  justify-content: space-between;
+  justify-content: start;
   flex-wrap: wrap;
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <div class="iot-card" v-bind:class="{ marginTop20: iot.seq > 4}">
+  <div class="iot-card" v-bind:class="{ marginTop20: iot.seq > 4, marginRight26: iot.seq % 4 != 0}">
     <div class="iot-card-header">
       <img :src="iotUrl" alt="" class="iot-card-img">
       <span style="margin-left: 50px">SN：{{iot.sn}}</span>
@@ -90,5 +90,8 @@ export default {
 }
 .marginTop20 {
   margin-top: 20px;
+}
+.marginRight26 {
+  margin-right: 26px;
 }
 </style>
