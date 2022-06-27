@@ -15,6 +15,7 @@
           v-for="(iot, index) in iots"
           :iot="iot"
           :key="index"
+          @openOrCloseHandle="openOrCloseHandle"
           @updateIot="updateIot"
       />
     </div>
@@ -41,7 +42,7 @@
 </template>
 
 <script>
-import {list as iotList} from "@/api/iot/iot";
+import {list as iotList,openOrCloseLed} from "@/api/iot/iot";
 import IotCard from "@/views/iot/comonent/IotCard";
 import CommonSearchHead from "@/components/CommonSearchHead";
 import IotAdd from "@/views/iot/comonent/IotAdd";
@@ -83,6 +84,13 @@ export default {
           return iot;
         })
       });
+    },
+    // 开关灯
+    openOrCloseHandle(params){
+      openOrCloseLed(params)
+      .then(res => {
+        this.$message.success("操作成功!");
+      })
     },
     addCancelHandle() {
       this.addVisible = false;

@@ -4,6 +4,7 @@ const api = {
     add: '/iot',
     update: '/iot',
     list: '/iot/list',
+    openOrCloseLed: '/iot/openOrCloseLed',
 }
 
 /**
@@ -46,6 +47,17 @@ export function list(searchKey) {
         params: {searchKey}
     })
 }
+
+// 开关灯
+export function openOrCloseLed({id,ledValue}) {
+    return request({
+        url: `${api.openOrCloseLed}/${id}`,
+        method: 'put',
+        params: {openOrClose:ledValue}
+    })
+}
+
+
 
 
 
