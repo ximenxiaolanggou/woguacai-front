@@ -69,7 +69,7 @@ export default {
  vertical-align: middle
 }
 .iot-card-main {
-  margin-top: 50px;
+  margin-top: 30px;
   height: 50px;
   position: relative;
 }
