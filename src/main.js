@@ -15,6 +15,10 @@ import store from './store'
 
 import './permission'
 
+import * as echarts from 'echarts'
+
+Vue.prototype.$echarts = echarts //挂载到Vue实例上面
+
 Vue.config.productionTip = false
 
 Vue.use(mavonEditor)
