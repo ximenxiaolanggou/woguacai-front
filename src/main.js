@@ -6,6 +6,7 @@ import Element from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import 'normalize.css/normalize.css' // a modern alternative to CSS resets
 import '@/styles/index.css' // global css
+import '@/assets/ali/iconfont.css'
 
 import mavonEditor from 'mavon-editor'
 import 'mavon-editor/dist/css/index.css'

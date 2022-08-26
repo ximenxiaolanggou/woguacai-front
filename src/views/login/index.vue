@@ -10,14 +10,37 @@
           <el-input type="password" v-model="ruleForm.password" autocomplete="off" style="width: 300px"></el-input>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="submitForm('ruleForm')">登录</el-button>
+          <div style="display: flex; justify-content: space-between">
+            <div style="flex: 4">
+              <el-button type="primary" @click="submitForm('ruleForm')">登录</el-button>
+            </div>
+            <div style="flex: 3">
+              <el-dropdown trigger="click">
+                <span class="el-dropdown-link">
+                  第三方登录<i class="el-icon-arrow-down el-icon--right"></i>
+                </span>
+                <el-dropdown-menu slot="dropdown">
+                  <el-dropdown-item @click.native="wxLogin" icon="iconfont icon-weixin">微信</el-dropdown-item>
+                </el-dropdown-menu>
+              </el-dropdown>
+            </div>
+          </div>
+
         </el-form-item>
       </el-form>
     </div>
+
+    <!-- 绑定账号弹出层 -->
+    <bind-tpl
+      :visible="bindTplVisible"
+      @cancelHandle="bindTplCancelHandle"
+      :open-id="openId"
+    />
   </div>
 </template>
 
 <script>
+import BindTpl from "@/views/login/component/BindTpl";
 import {login} from "@/api/auth";
 import store from "@/store";
 import Cookies from "js-cookie";
@@ -25,6 +48,7 @@ import {TOKEN_NAME, TOKEN_VALUE} from "@/utils/const";
 
 export default {
   name: "Login",
+  components: {BindTpl},
   data() {
     let validateUsername = (rule, value, callback) => {
       if (!value) {
@@ -42,6 +66,15 @@ export default {
     };
 
     return {
+      tplWx: {
+        name: 'WX',
+        img: require('@/assets/wx.svg')
+      },
+      bindTplVisible: false,
+      bind: this.$route.query.bind,
+      tokenName: this.$route.query.tokenName,
+      tokenValue: this.$route.query.tokenValue,
+      openId: this.$route.query.openId,
       ruleForm: {
         username: '',
         password: ''
@@ -58,17 +91,55 @@ export default {
   },
 
   mounted() {
+    let newQuery = JSON.parse(JSON.stringify(this.$route.query)) // 深拷贝
+    delete newQuery.bind
+    delete newQuery.tokenName
+    delete newQuery.tokenValue
+    delete newQuery.openId
+    this.$router.replace({ query: newQuery })
+    if(this.bind != undefined) { // 第三方登录回调
+      this.bind = this.bind == 'true'; // 字符串true 转 boolean true
+      this.tplCallBack();
+    }
   },
   methods: {
+    // 微信登录
+    wxLogin() {
+      window.location.href = process.env.VUE_APP_BASE_API + '/wx/auth/render'
+    },
+    bindTplCancelHandle() {
+      this.bindTplVisible = false;
+    },
+    // 第三方登录回调
+    tplCallBack() {
+      if(this.bind) { // 已绑定
+        Cookies.set(TOKEN_NAME, this.tokenName)
+        Cookies.set(TOKEN_VALUE, this.tokenValue)
+        store.dispatch('user/setTokenName', this.tokenName);
+        store.dispatch('user/setTokenValue', this.tokenValue);
+        this.$router.push({path: '/home'})
+      }else { // 未绑定
+        this.open();
+      }
+    },
+    open() {
+      this.$confirm('未绑定账号', '提示', {
+        confirmButtonText: '绑定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        this.bindTplVisible = true;
+      })
+  },
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           login(this.ruleForm)
           .then(res => {
-            let {tokeName, tokenValue} = res.data;
-            Cookies.set(TOKEN_NAME, tokeName)
+            let {tokenName, tokenValue} = res.data;
+            Cookies.set(TOKEN_NAME, tokenName)
             Cookies.set(TOKEN_VALUE, tokenValue)
-            store.dispatch('user/setTokenName', tokeName);
+            store.dispatch('user/setTokenName', tokenName);
             store.dispatch('user/setTokenValue', tokenValue);
             this.$router.push({path: '/home'})
           })
@@ -92,7 +163,7 @@ export default {
     background-color: white;
     border-radius: 20px;
     width: 450px;
-    height: 400px;
+    height: 350px;
     position: absolute;
     left: 100px;
     bottom: 100px;

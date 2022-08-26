@@ -44,7 +44,6 @@ export default {
   }
   .main {
     height: 100%;
-    height: 100%;
     overflow-y: scroll;
     background-color: rgba(0,0,0,0.6);
     background-size: cover;
