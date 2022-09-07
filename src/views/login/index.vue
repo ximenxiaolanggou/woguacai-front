@@ -160,7 +160,7 @@ export default {
     background-size: cover;
   }
   .main {
-    background-color: white;
+    background: rgba(47,75,122,.5);
     border-radius: 20px;
     width: 450px;
     height: 350px;
